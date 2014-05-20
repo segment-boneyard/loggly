@@ -17,7 +17,7 @@ var log = new Loggly('your-token-here');
 
 log.send({ level: 'info', foo: 'bar' })
 log.info('something')
-log.error('boom', { error: 'something exploded' })
+log.warn('some stuff', { info: 'here' })
 ```
 
 ## Options
