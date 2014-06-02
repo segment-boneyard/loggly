@@ -44,7 +44,7 @@ function Client(token, opts) {
   this.url = opts.url || 'https://logs-01.loggly.com/bulk/' + token + '/tag/bulk';
   this.bufferSize = opts.bufferSize || 100;
   this.flushInterval = opts.flushInterval || 5000;
-  this.host = opts.host || os.hostname();
+  if (false !== opts.host) this.host = opts.host || os.hostname();
   this.level = opts.level || levels.info;
   this.token = token;
   this.buffer = [];
@@ -123,7 +123,7 @@ Client.prototype.stop = function(){
 Client.prototype.send = function(msg){
   debug('>> %j (%s/%s)', msg, this.buffer.length, this.bufferSize);
   msg.timestamp = Date.now();
-  msg.hostname = this.host;
+  if (this.host) msg.hostname = this.host;
   this.buffer.push(JSON.stringify(msg));
   if (this.buffer.length >= this.bufferSize) this.flush();
 };
