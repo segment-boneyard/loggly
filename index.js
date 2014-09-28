@@ -83,9 +83,9 @@ Client.prototype._send = function(msgs, fn){
   };
 
   request(opts, function(err, res){
-    debug('<< %s', res.statusCode);
+    debug('<< %s', res && res.statusCode);
     if (err) self.emit('error', err);
-    if (res.statusCode >= 400) self.emit('error', new Error(res.statusCode + ' response'));
+    if (res && res.statusCode >= 400) self.emit('error', new Error(res.statusCode + ' response'));
     if (fn) fn(err, res);
   });
 };
